@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Beauty and the Beast</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0a043c;
+      color: white;
+      overflow: hidden;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite ease-in-out alternate;
+      box-shadow: 0 0 5px #fff;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.3; transform: scale(0.8); }
+    }
+
+    .petal {
+      position: absolute;
+      background-image: url('https://i.postimg.cc/PxmwHBVS/38334-removebg-preview.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 40px;
+      height: 40px;
+      animation: fall linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 5em;
+      margin: 30px 0;
+      color: #f8d210;
+      text-shadow: 0 0 10px rgba(248, 210, 16, 0.5);
+    }
+
+    .heroes-img {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 500px;
+      width: auto;
+      z-index: 1;
+    }
+
+    .rose-center {
+      display: inline-block;
+      margin-top: 60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .rose-img {
+      width: 160px;
+      cursor: pointer;
+      animation: float 3s ease-in-out infinite;
+      transition: transform 0.3s;
+    }
+
+    .rose-img:hover {
+      transform: scale(1.2);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- الموسيقى -->
+<audio id="bgMusic" autoplay loop>
+  <source src="https://media.vocaroo.com/mp3/1nzjDwLLQ73o" type="audio/mpeg">
+</audio>
+
+<!-- النجوم -->
+<div class="stars" id="stars"></div>
+
+<!-- الورود -->
+<div id="petals"></div>
+
+<!-- صورة الأبطال -->
+<img src="https://i.postimg.cc/YSVymm3v/download-2-removebg-preview-1.png" alt="Belle and Beast dancing" class="heroes-img">
+
+<!-- العنوان -->
+<h1>Beauty and the Beast</h1>
+
+<!-- الوردة (زر الدخول) -->
+<a href="description.html" class="rose-center">
+  <img src="https://i.postimg.cc/PxmwHBVS/38334-removebg-preview.png" alt="Enchanted Rose" class="rose-img">
+</a>
+
+<script>
+  function createStars() {
+    const container = document.getElementById('stars');
+    for (let i = 0; i < 200; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.width = `${Math.random() * 3 + 1}px`;
+      star.style.height = star.style.width;
+      star.style.left = `${Math.random() * 100}vw`;
+      star.style.top = `${Math.random() * 100}vh`;
+      star.style.animationDelay = `${Math.random() * 5}s`;
+      star.style.animationDuration = `${2 + Math.random() * 3}s`;
+      container.appendChild(star);
+    }
+  }
+
+  function createPetals() {
+    const container = document.getElementById('petals');
+    for (let i = 0; i < 20; i++) {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.style.left = `${Math.random() * 100}vw`;
+      petal.style.top = `-${Math.random() * 20}px`;
+      petal.style.animationDuration = `${5 + Math.random() * 5}s`;
+      petal.style.animationDelay = `${Math.random() * 5}s`;
+      container.appendChild(petal);
+    }
+  }
+
+  window.onload = function() {
+    createStars();
+    createPetals();
+
+    const audio = document.getElementById("bgMusic");
+    const playAudio = () => {
+      audio.play().catch(err => console.log("Audio error:", err));
+      window.removeEventListener("click", playAudio);
+      window.removeEventListener("keydown", playAudio);
+    };
+    window.addEventListener("click", playAudio);
+    window.addEventListener("keydown", playAudio);
+  };
+</script>
+</body>
+</html>

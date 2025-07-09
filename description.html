@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Description</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0a043c;
+      color: white;
+      overflow-x: hidden;
+      text-align: center;
+      position: relative;
+    }
+
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite ease-in-out alternate;
+      box-shadow: 0 0 5px #fff;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.3; transform: scale(0.8); }
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 50px 30px;
+    }
+
+    .description {
+      max-width: 600px;
+      padding: 25px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      border: 5px solid #f8d210;
+      box-shadow: 0 0 15px #f8d210;
+      font-size: 1.3em;
+      margin-right: 30px;
+    }
+
+    .character-img {
+      width: 300px;
+      height: auto;
+      border-radius: 20px;
+    }
+
+    .rose-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 10;
+    }
+
+    .rose-btn img {
+      width: 90px;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .rose-btn img:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+  
+<audio id="bgMusic" autoplay loop>
+  <source src="https://media.vocaroo.com/mp3/1nzjDwLLQ73o" type="audio/mpeg">
+</audio>
+  <div class="stars" id="stars"></div>
+
+  <div class="container">
+    <div class="description">
+      <h2 style="font-family: 'Dancing Script', cursive; color: #f8d210; font-size: 2.8em;">Beauty and the Beast</h2>
+      <p>
+        A beautiful story about love, sacrifice, and redemption. Belle, a curious and kind young woman, becomes a prisoner in a mysterious castle inhabited by a cursed prince turned beast. Over time, they grow closer, discovering the power of true love that can break any spell.
+      </p>
+    </div>
+    <img src="https://i.postimg.cc/Y9CnVzCD/download-1-removebg-preview.png" alt="Characters" class="character-img">
+  </div>
+
+  <a href="video.html" class="rose-btn">
+    <img src="https://i.postimg.cc/YSVymm3v/download-2-removebg-preview-1.png" alt="Rose Button">
+  </a>
+
+  <script>
+    function createStars() {
+      const container = document.getElementById('stars');
+      for (let i = 0; i < 200; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.width = `${Math.random() * 3 + 1}px`;
+        star.style.height = star.style.width;
+        star.style.left = `${Math.random() * 100}vw`;
+        star.style.top = `${Math.random() * 100}vh`;
+        star.style.animationDelay = `${Math.random() * 5}s`;
+        star.style.animationDuration = `${2 + Math.random() * 3}s`;
+        container.appendChild(star);
+      }
+    }
+
+    function handleFirstInteraction() {
+      const audio = document.getElementById('bgMusic');
+      audio.play().catch(() => {});
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('keydown', handleFirstInteraction);
+    }
+
+    window.onload = function() {
+      createStars();
+      document.addEventListener('click', handleFirstInteraction);
+      document.addEventListener('keydown', handleFirstInteraction);
+    }
+  </script>
+</body>
+</html>
